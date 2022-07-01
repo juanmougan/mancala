@@ -7,7 +7,9 @@ import com.github.juanmougan.mancala.dtos.GameCreationRequest;
 import com.github.juanmougan.mancala.dtos.GameResponse;
 import com.github.juanmougan.mancala.dtos.MoveRequest;
 import com.github.juanmougan.mancala.dtos.Player;
+import com.github.juanmougan.mancala.dtos.PlayerType;
 import com.github.juanmougan.mancala.dtos.Status;
+import com.github.juanmougan.mancala.exceptions.IllegalMovementException;
 import com.github.juanmougan.mancala.models.Game;
 import com.github.juanmougan.mancala.repositories.GameRepository;
 import java.util.UUID;
@@ -47,6 +49,7 @@ public class GameService {
   }
 
   private GameResponse performMove(final Game currentGame, final MoveRequest moveRequest) {
+    validateYourTurn(currentGame, moveRequest);
     currentGame.performMove();
     return GameResponse.builder()
         .id(currentGame.getId())
@@ -54,5 +57,12 @@ public class GameService {
         .next(currentGame.getBoard().getCurrentPlayer())
         .status(Status.STARTED)
         .build();
+  }
+
+  private void validateYourTurn(final Game currentGame, final MoveRequest moveRequest) {
+    final PlayerType currentPlayerType = currentGame.getBoard().getCurrentPlayer().getType();
+    if (!currentPlayerType.equals(moveRequest.getPlayerType())) {
+      throw new IllegalMovementException(String.format("It's %s turn!", currentPlayerType));
+    }
   }
 }

@@ -1,5 +1,6 @@
 package com.github.juanmougan.mancala.services;
 
+import static com.github.juanmougan.mancala.utils.GameMocks.getValidNorthMove;
 import static com.github.juanmougan.mancala.utils.GameMocks.getValidSouthMove;
 import static com.github.juanmougan.mancala.utils.GameMocks.mockRealGame;
 import static com.github.juanmougan.mancala.utils.TestConstants.STARTED_GAME_UUID;
@@ -13,13 +14,13 @@ import com.github.juanmougan.mancala.dtos.GameResponse;
 import com.github.juanmougan.mancala.dtos.Player;
 import com.github.juanmougan.mancala.dtos.PlayerType;
 import com.github.juanmougan.mancala.dtos.Status;
+import com.github.juanmougan.mancala.exceptions.IllegalMovementException;
 import com.github.juanmougan.mancala.models.Game;
 import com.github.juanmougan.mancala.repositories.GameRepository;
 import java.util.Optional;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 //@ExtendWith(MockitoExtension.class)
 class GameServiceTest {
@@ -57,5 +58,14 @@ class GameServiceTest {
 
     assertThat(moveResult).extracting(GameResponse::getNext).extracting(Player::getType).isEqualTo(
         PlayerType.NORTH);
+  }
+
+  @Test
+  void shouldFailIfNotYourTurn() {
+    final int STARTING_PIT = 1;
+    Assertions.assertThrows(IllegalMovementException.class, () -> {
+      gameService.move(STARTED_GAME_UUID,
+          getValidNorthMove(STARTING_PIT));
+    });
   }
 }

@@ -19,12 +19,16 @@ import org.mockito.Mockito;
 public class GameMocks {
 
   public static MoveRequest getValidSouthMove(final int pit) {
-    return getValidSouthMove(pit, SOUTH);
+    return getValidMove(pit, SOUTH);
   }
 
-  public static MoveRequest getValidSouthMove(final int pit, final PlayerType playerType) {
+  public static MoveRequest getValidNorthMove(final int pit) {
+    return getValidMove(pit, NORTH);
+  }
+
+  public static MoveRequest getValidMove(final int pit, final PlayerType playerType) {
     return MoveRequest.builder()
-        .playerType(SOUTH)
+        .playerType(playerType)
         .pit(pit)
         .build();
   }
