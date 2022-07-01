@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 import com.github.juanmougan.mancala.dtos.Board;
 import com.github.juanmougan.mancala.dtos.MoveRequest;
 import com.github.juanmougan.mancala.dtos.Player;
+import com.github.juanmougan.mancala.dtos.PlayerType;
 import com.github.juanmougan.mancala.models.Game;
 import java.util.UUID;
 import lombok.experimental.UtilityClass;
@@ -18,6 +19,10 @@ import org.mockito.Mockito;
 public class GameMocks {
 
   public static MoveRequest getValidSouthMove(final int pit) {
+    return getValidSouthMove(pit, SOUTH);
+  }
+
+  public static MoveRequest getValidSouthMove(final int pit, final PlayerType playerType) {
     return MoveRequest.builder()
         .playerType(SOUTH)
         .pit(pit)
