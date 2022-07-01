@@ -1,7 +1,7 @@
 package com.github.juanmougan.mancala.services;
 
-import com.github.juanmougan.mancala.dtos.Board;
-import com.github.juanmougan.mancala.dtos.Player;
+import com.github.juanmougan.mancala.models.Board;
+import com.github.juanmougan.mancala.models.Player;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +18,5 @@ public class BoardService {
         .north(north)
         .currentPlayer(south)
         .build();
-  }
-
-  public void changeCurrentPlayer(final Board board) {
-    final Player currentPlayer = board.getCurrentPlayer();
-
   }
 }

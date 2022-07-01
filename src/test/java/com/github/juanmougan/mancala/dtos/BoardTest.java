@@ -3,6 +3,8 @@ package com.github.juanmougan.mancala.dtos;
 import static com.github.juanmougan.mancala.utils.PlayerMocks.mockPlayer;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.github.juanmougan.mancala.models.Board;
+import com.github.juanmougan.mancala.models.Player;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 

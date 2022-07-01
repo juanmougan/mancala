@@ -1,4 +1,4 @@
-package com.github.juanmougan.mancala.dtos;
+package com.github.juanmougan.mancala.models;
 
 import java.util.UUID;
 import javax.persistence.Entity;

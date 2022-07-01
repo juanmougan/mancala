@@ -1,5 +1,6 @@
-package com.github.juanmougan.mancala.dtos;
+package com.github.juanmougan.mancala.models;
 
+import com.github.juanmougan.mancala.dtos.PlayerType;
 import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.Id;

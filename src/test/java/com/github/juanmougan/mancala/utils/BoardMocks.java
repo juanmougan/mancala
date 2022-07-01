@@ -4,8 +4,8 @@ import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.github.juanmougan.mancala.dtos.Board;
-import com.github.juanmougan.mancala.dtos.Player;
+import com.github.juanmougan.mancala.models.Board;
+import com.github.juanmougan.mancala.models.Player;
 
 public class BoardMocks {
 

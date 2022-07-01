@@ -1,6 +1,6 @@
 package com.github.juanmougan.mancala.services;
 
-import com.github.juanmougan.mancala.dtos.Player;
+import com.github.juanmougan.mancala.models.Player;
 import com.github.juanmougan.mancala.dtos.PlayerType;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,5 @@
 package com.github.juanmougan.mancala.models;
 
-import com.github.juanmougan.mancala.dtos.Board;
 import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.Id;

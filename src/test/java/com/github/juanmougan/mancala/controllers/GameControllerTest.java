@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.juanmougan.mancala.dtos.GameCreationRequest;
 import com.github.juanmougan.mancala.dtos.GameResponse;
 import com.github.juanmougan.mancala.dtos.MoveRequest;
-import com.github.juanmougan.mancala.dtos.Player;
+import com.github.juanmougan.mancala.models.Player;
 import com.github.juanmougan.mancala.dtos.PlayerType;
 import com.github.juanmougan.mancala.services.GameService;
 import com.github.juanmougan.mancala.utils.TestConstants;

@@ -2,7 +2,7 @@ package com.github.juanmougan.mancala.utils;
 
 import static org.mockito.Mockito.when;
 
-import com.github.juanmougan.mancala.dtos.Player;
+import com.github.juanmougan.mancala.models.Player;
 import com.github.juanmougan.mancala.dtos.PlayerType;
 import lombok.experimental.UtilityClass;
 import org.mockito.Mockito;
