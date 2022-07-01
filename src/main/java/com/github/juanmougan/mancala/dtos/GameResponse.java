@@ -9,4 +9,7 @@ import lombok.Data;
 public class GameResponse {
 
   private UUID id;
+  private Status status;
+  private Player next;
+  private Board board;
 }
