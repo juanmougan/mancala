@@ -1,5 +1,6 @@
 package com.github.juanmougan.mancala.dtos;
 
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,8 +10,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MoveRequest {
+public class PlayerDto {
 
-  private PlayerDto player;
-  private int pit;
+  private UUID id;
+
+  private String name;
+
+  private PlayerType type;
 }

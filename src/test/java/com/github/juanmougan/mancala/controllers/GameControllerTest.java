@@ -1,5 +1,6 @@
 package com.github.juanmougan.mancala.controllers;
 
+import static com.github.juanmougan.mancala.utils.PlayerMocks.mockSouthPlayer;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -13,8 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.juanmougan.mancala.dtos.GameCreationRequest;
 import com.github.juanmougan.mancala.dtos.GameResponse;
 import com.github.juanmougan.mancala.dtos.MoveRequest;
-import com.github.juanmougan.mancala.models.Player;
-import com.github.juanmougan.mancala.dtos.PlayerType;
+import com.github.juanmougan.mancala.dtos.PlayerDto;
 import com.github.juanmougan.mancala.services.GameService;
 import com.github.juanmougan.mancala.utils.TestConstants;
 import java.io.UnsupportedEncodingException;
@@ -39,7 +39,7 @@ class GameControllerTest {
   @Autowired
   private ObjectMapper objectMapper;
 
-  private static GameResponse expectedGameResponse(final Player northPlayerGame) {
+  private static GameResponse expectedGameResponse(final PlayerDto northPlayerGame) {
     return GameResponse.builder()
         .next(northPlayerGame)
         .build();
@@ -47,7 +47,7 @@ class GameControllerTest {
 
   @Test
   void shouldCreateNewGame() throws Exception {
-    final Player northPlayer = Player.builder()
+    final PlayerDto northPlayer = PlayerDto.builder()
         .name("north")
         .build();
     Mockito.when(gameService.create(any(GameCreationRequest.class)))
@@ -74,7 +74,7 @@ class GameControllerTest {
     final int startingIndex = 3;
     final MoveRequest moveRequest = MoveRequest.builder()
         .pit(startingIndex)
-        .playerType(PlayerType.SOUTH)
+        .player(mockSouthPlayer())
         .build();
 
     final String requestContent = objectMapper.writeValueAsString(moveRequest);

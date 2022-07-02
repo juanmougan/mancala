@@ -2,12 +2,14 @@ package com.github.juanmougan.mancala.utils;
 
 import static com.github.juanmougan.mancala.dtos.PlayerType.NORTH;
 import static com.github.juanmougan.mancala.dtos.PlayerType.SOUTH;
+import static com.github.juanmougan.mancala.utils.PlayerMocks.mockNorthPlayer;
 import static com.github.juanmougan.mancala.utils.PlayerMocks.mockPlayer;
+import static com.github.juanmougan.mancala.utils.PlayerMocks.mockSouthPlayer;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 import com.github.juanmougan.mancala.dtos.MoveRequest;
-import com.github.juanmougan.mancala.dtos.PlayerType;
+import com.github.juanmougan.mancala.dtos.PlayerDto;
 import com.github.juanmougan.mancala.models.Board;
 import com.github.juanmougan.mancala.models.Game;
 import com.github.juanmougan.mancala.models.Player;
@@ -20,16 +22,18 @@ import org.mockito.Mockito;
 public class GameMocks {
 
   public static MoveRequest getValidSouthMove(final int pit) {
-    return getValidMove(pit, SOUTH);
+    final PlayerDto south = mockSouthPlayer();
+    return getValidMove(pit, south);
   }
 
   public static MoveRequest getValidNorthMove(final int pit) {
-    return getValidMove(pit, NORTH);
+    final PlayerDto north = mockNorthPlayer();
+    return getValidMove(pit, north);
   }
 
-  public static MoveRequest getValidMove(final int pit, final PlayerType playerType) {
+  public static MoveRequest getValidMove(final int pit, final PlayerDto player) {
     return MoveRequest.builder()
-        .playerType(playerType)
+        .player(player)
         .pit(pit)
         .build();
   }

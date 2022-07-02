@@ -6,6 +6,7 @@ import static com.github.juanmougan.mancala.dtos.PlayerType.SOUTH;
 import com.github.juanmougan.mancala.dtos.GameCreationRequest;
 import com.github.juanmougan.mancala.dtos.GameResponse;
 import com.github.juanmougan.mancala.dtos.MoveRequest;
+import com.github.juanmougan.mancala.dtos.PlayerDto;
 import com.github.juanmougan.mancala.dtos.PlayerType;
 import com.github.juanmougan.mancala.dtos.Status;
 import com.github.juanmougan.mancala.exceptions.IllegalMovementException;
@@ -37,7 +38,7 @@ public class GameService {
         .board(boardService.createInitialBoard(
             south,
             playerService.create(request.getPlayerNorth(), NORTH)))
-        .next(south)
+        .next(modelMapper.map(south, PlayerDto.class))
         .build();
   }
 
@@ -54,14 +55,14 @@ public class GameService {
     return GameResponse.builder()
         .id(currentGame.getId())
         .board(currentGame.getBoard())
-        .next(currentGame.getBoard().getCurrentPlayer())
+        .next(modelMapper.map(currentGame.getBoard().getCurrentPlayer(), PlayerDto.class))
         .status(Status.STARTED)
         .build();
   }
 
   private void validateYourTurn(final Game currentGame, final MoveRequest moveRequest) {
     final PlayerType currentPlayerType = currentGame.getBoard().getCurrentPlayer().getType();
-    if (!currentPlayerType.equals(moveRequest.getPlayerType())) {
+    if (!currentPlayerType.equals(moveRequest.getPlayer().getType())) {
       throw new IllegalMovementException(String.format("It's %s turn!", currentPlayerType));
     }
   }

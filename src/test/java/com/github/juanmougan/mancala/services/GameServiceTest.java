@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 
 import com.github.juanmougan.mancala.dtos.GameCreationRequest;
 import com.github.juanmougan.mancala.dtos.GameResponse;
-import com.github.juanmougan.mancala.models.Player;
+import com.github.juanmougan.mancala.dtos.PlayerDto;
 import com.github.juanmougan.mancala.dtos.PlayerType;
 import com.github.juanmougan.mancala.dtos.Status;
 import com.github.juanmougan.mancala.exceptions.IllegalMovementException;
@@ -46,7 +46,7 @@ class GameServiceTest {
     final GameResponse gameResponse = gameService.create(request);
 
     assertThat(gameResponse).extracting(GameResponse::getStatus).isEqualTo(Status.STARTED);
-    assertThat(gameResponse).extracting(GameResponse::getNext).extracting(Player::getName)
+    assertThat(gameResponse).extracting(GameResponse::getNext).extracting(PlayerDto::getName)
         .isEqualTo("south");
   }
 
@@ -56,8 +56,9 @@ class GameServiceTest {
     final GameResponse moveResult = gameService.move(STARTED_GAME_UUID,
         getValidSouthMove(STARTING_PIT));
 
-    assertThat(moveResult).extracting(GameResponse::getNext).extracting(Player::getType).isEqualTo(
-        PlayerType.NORTH);
+    assertThat(moveResult).extracting(GameResponse::getNext).extracting(PlayerDto::getType)
+        .isEqualTo(
+            PlayerType.NORTH);
   }
 
   @Test
