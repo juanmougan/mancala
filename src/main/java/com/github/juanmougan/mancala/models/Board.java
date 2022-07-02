@@ -1,5 +1,6 @@
 package com.github.juanmougan.mancala.models;
 
+import com.github.juanmougan.mancala.dtos.PlayerType;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.Entity;
@@ -41,6 +42,31 @@ public class Board {
       currentPlayer = north;
     } else {
       currentPlayer = south;
+    }
+  }
+
+  // TODO refactor these two methods
+  public List<Cell> getCellsForPlayer(final Player player) {
+    if (PlayerType.SOUTH.equals(player.getType())) {
+      return southCells;
+    } else {
+      if (PlayerType.NORTH.equals(player.getType())) {
+        return northCells;
+      } else {
+        throw new IllegalArgumentException("Unknown player type: " + player.getType());
+      }
+    }
+  }
+
+  public List<Cell> getCellsForRival(final Player player) {
+    if (PlayerType.SOUTH.equals(player.getType())) {
+      return northCells;
+    } else {
+      if (PlayerType.NORTH.equals(player.getType())) {
+        return southCells;
+      } else {
+        throw new IllegalArgumentException("Unknown player type: " + player.getType());
+      }
     }
   }
 }

@@ -39,4 +39,33 @@ class BoardServiceTest {
         .extracting(Cell::getSeeds)
         .allMatch(s -> s == 6);
   }
+
+  @Test
+  void shouldDistributeCells() {
+    final BoardService boardService = new BoardService();
+    final Player south = PlayerMocks.mockPlayer(PlayerType.SOUTH);
+    final Player north = PlayerMocks.mockPlayer(PlayerType.NORTH);
+    final Board board = boardService.createInitialBoard(south, north);
+    board.setCurrentPlayer(south);
+
+    boardService.distributeSeeds(0, board);
+
+    assertThat(board.getNorthCells())
+        .filteredOn(c -> c.getType().equals(CellType.PIT))
+        .extracting(Cell::getSeeds)
+        .allMatch(s -> s == 6);
+    assertThat(board.getNorthCells())
+        .filteredOn(c -> c.getType().equals(CellType.SCORING_WELL))
+        .extracting(Cell::getSeeds)
+        .allMatch(s -> s == 0);
+
+    assertThat(board.getSouthCells())
+        .filteredOn(c -> c.getType().equals(CellType.PIT))
+        .extracting(Cell::getSeeds)
+        .containsOnly(0, 7, 7, 7, 7, 7);
+    assertThat(board.getSouthCells())
+        .filteredOn(c -> c.getType().equals(CellType.SCORING_WELL))
+        .extracting(Cell::getSeeds)
+        .allMatch(s -> s == 1);
+  }
 }

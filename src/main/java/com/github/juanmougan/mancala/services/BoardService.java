@@ -46,4 +46,31 @@ public class BoardService {
         .build());
     return Stream.concat(pitStream, scoringWellStream).collect(toList());
   }
+
+  public void distributeSeeds(final int pit, final Board board) {
+    final List<Cell> cellsForPlayer = board.getCellsForPlayer(board.getCurrentPlayer());
+    final Cell startingCell = cellsForPlayer.get(pit);
+    int seedsInStartingPit = startingCell.extractSeeds();
+    incrementSeedsInSubsequentCells(pit, board, seedsInStartingPit);
+  }
+
+  private void incrementSeedsInSubsequentCells(final int startingPit, final Board board,
+      final int totalSeeds) {
+    int remainingSeeds = totalSeeds;
+    // TODO refactor this, and consider what happens if there are enough seeds to return to current player's board again!
+    final List<Cell> cellsForPlayer = board.getCellsForPlayer(board.getCurrentPlayer());
+    for (int i = startingPit + 1; i < cellsForPlayer.size(); i++) {
+      if (remainingSeeds > 0) {
+        cellsForPlayer.get(i).addOneSeed(board.getCurrentPlayer());
+        remainingSeeds--;
+      }
+    }
+    final List<Cell> cellsForRival = board.getCellsForRival(board.getCurrentPlayer());
+    for (int i = 0; i < cellsForRival.size(); i++) {
+      if (remainingSeeds > 0) {
+        cellsForRival.get(i).addOneSeed(board.getCurrentPlayer());
+        remainingSeeds--;
+      }
+    }
+  }
 }

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MoveRequest {
 
+  // TODO maybe PlayerType made more sense
   private PlayerDto player;
   private int pit;
 }

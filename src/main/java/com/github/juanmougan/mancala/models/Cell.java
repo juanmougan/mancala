@@ -25,4 +25,16 @@ public class Cell {
   private Player owner;
 
   private CellType type;
+
+  public void addOneSeed(final Player currentPlayer) {
+    if (owner.equals(currentPlayer) || CellType.PIT.equals(type)) {
+      seeds++;
+    }
+  }
+
+  public int extractSeeds() {
+    final int existingSeeds = seeds;
+    seeds = 0;
+    return existingSeeds;
+  }
 }

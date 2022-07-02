@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PlayerDto {
 
+  // TODO delete this, it's too much responsibility in the client side
   private UUID id;
 
   private String name;
