@@ -6,11 +6,12 @@ import static com.github.juanmougan.mancala.utils.PlayerMocks.mockPlayer;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
-import com.github.juanmougan.mancala.models.Board;
 import com.github.juanmougan.mancala.dtos.MoveRequest;
-import com.github.juanmougan.mancala.models.Player;
 import com.github.juanmougan.mancala.dtos.PlayerType;
+import com.github.juanmougan.mancala.models.Board;
 import com.github.juanmougan.mancala.models.Game;
+import com.github.juanmougan.mancala.models.Player;
+import com.github.juanmougan.mancala.services.BoardService;
 import java.util.UUID;
 import lombok.experimental.UtilityClass;
 import org.mockito.Mockito;
@@ -40,11 +41,12 @@ public class GameMocks {
     final Player north = mockPlayer(NORTH);
     final Board board = BoardMocks.mockBoard(south, north);
     when(game.getBoard()).thenReturn(board);
-    Mockito.doCallRealMethod().when(game).performMove();
+    Mockito.doCallRealMethod().when(game).switchCurrentPlayer();
     return game;
   }
 
   public static Game mockRealGame() {
+    final BoardService boardService = new BoardService();
     final Player south = Player.builder()
         .type(SOUTH)
         .name("south")
@@ -54,11 +56,7 @@ public class GameMocks {
         .name("north")
         .build();
     return Game.builder()
-        .board(Board.builder()
-            .south(south)
-            .north(north)
-            .currentPlayer(south)
-            .build())
+        .board(boardService.createInitialBoard(south, north))
         .build();
   }
 }

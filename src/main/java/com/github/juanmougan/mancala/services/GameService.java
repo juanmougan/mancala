@@ -6,11 +6,11 @@ import static com.github.juanmougan.mancala.dtos.PlayerType.SOUTH;
 import com.github.juanmougan.mancala.dtos.GameCreationRequest;
 import com.github.juanmougan.mancala.dtos.GameResponse;
 import com.github.juanmougan.mancala.dtos.MoveRequest;
-import com.github.juanmougan.mancala.models.Player;
 import com.github.juanmougan.mancala.dtos.PlayerType;
 import com.github.juanmougan.mancala.dtos.Status;
 import com.github.juanmougan.mancala.exceptions.IllegalMovementException;
 import com.github.juanmougan.mancala.models.Game;
+import com.github.juanmougan.mancala.models.Player;
 import com.github.juanmougan.mancala.repositories.GameRepository;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -50,7 +50,7 @@ public class GameService {
 
   private GameResponse performMove(final Game currentGame, final MoveRequest moveRequest) {
     validateYourTurn(currentGame, moveRequest);
-    currentGame.performMove();
+    currentGame.switchCurrentPlayer();
     return GameResponse.builder()
         .id(currentGame.getId())
         .board(currentGame.getBoard())

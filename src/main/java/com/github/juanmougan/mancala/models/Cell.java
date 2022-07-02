@@ -9,22 +9,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Data
 @Entity
-public class Game {
+public class Cell {
 
   @Id
   private UUID id;
 
+  private int seeds;
+
   @ManyToOne
-  private Board board;
+  private Player owner;
 
-  public void switchCurrentPlayer() {
-    getBoard().switchPlayer();
-  }
-
+  private CellType type;
 }

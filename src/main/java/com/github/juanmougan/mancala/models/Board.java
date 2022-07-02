@@ -1,9 +1,11 @@
 package com.github.juanmougan.mancala.models;
 
+import java.util.List;
 import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,6 +29,12 @@ public class Board {
 
   @ManyToOne
   private Player currentPlayer;
+
+  @OneToMany
+  private List<Cell> southCells;
+
+  @OneToMany
+  private List<Cell> northCells;
 
   public void switchPlayer() {
     if (getCurrentPlayer().equals(south)) {
